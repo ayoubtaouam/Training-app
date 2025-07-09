@@ -16,7 +16,11 @@ public class SessionExercise {
     private Long id;
     private String notes;
     @OneToOne
+    @JoinColumn(name = "exercise_id")
     private Exercise exercise;
-    @OneToMany
+    @OneToMany(mappedBy = "exercise", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Set> sets;
+    @ManyToOne
+    @JoinColumn(name = "session_id")
+    private Session session;
 }

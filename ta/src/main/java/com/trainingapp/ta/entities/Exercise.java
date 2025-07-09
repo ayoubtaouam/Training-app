@@ -1,10 +1,7 @@
 package com.trainingapp.ta.entities;
 
 import com.trainingapp.ta.enums.Muscle;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
@@ -15,6 +12,8 @@ public class Exercise {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    @ElementCollection(targetClass = Muscle.class)
+    @Enumerated(value = EnumType.STRING)
     private List<Muscle> muscles;
-    private String Description;
+    private String description;
 }

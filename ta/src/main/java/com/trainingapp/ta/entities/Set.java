@@ -1,10 +1,7 @@
 package com.trainingapp.ta.entities;
 
 import com.trainingapp.ta.enums.Unit;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity @Getter
@@ -18,5 +15,9 @@ public class Set {
     private Long id;
     private int reps;
     private double weight;
+    @Enumerated(value = EnumType.STRING)
     private Unit unit;
+    @ManyToOne
+    @JoinColumn(name = "exercise_id")
+    private SessionExercise exercise;
 }

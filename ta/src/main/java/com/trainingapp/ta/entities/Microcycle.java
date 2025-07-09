@@ -15,7 +15,12 @@ public class Microcycle {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String name;
+    @Enumerated(value = EnumType.STRING)
     private MicrocycleType type;
-    @OneToMany
+    @OneToMany(mappedBy = "microcycle", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Session> sessions;
+    @ManyToOne
+    @JoinColumn(name = "mesocycle_id")
+    private Mesocycle mesocycle;
 }

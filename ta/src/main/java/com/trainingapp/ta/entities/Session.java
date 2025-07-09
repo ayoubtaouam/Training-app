@@ -14,7 +14,11 @@ public class Session {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String name;
     private String description;
-    @OneToMany
+    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SessionExercise> exercises;
+    @ManyToOne
+    @JoinColumn(name = "microcycle_id")
+    private Microcycle microcycle;
 }
