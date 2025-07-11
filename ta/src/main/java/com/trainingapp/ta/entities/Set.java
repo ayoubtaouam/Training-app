@@ -20,4 +20,5 @@ public class Set {
     @ManyToOne
     @JoinColumn(name = "exercise_id")
     private SessionExercise exercise;
+    private boolean isBodyWeight;
 }
