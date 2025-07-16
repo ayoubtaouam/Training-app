@@ -17,8 +17,8 @@ public class MesocycleServiceImpl implements MesocycleService{
     private MesocycleRepository mesocycleRepository;
     private MesocycleMapper mesocycleMapper;
     @Override
-    public Mesocycle createProgram(MesocycleDTO mesocycleDTO) {
-        return mesocycleRepository.save(mesocycleMapper.toMesocycle(mesocycleDTO));
+    public Mesocycle createProgram(MesocycleDTO mesocycle) {
+        return mesocycleRepository.save(mesocycleMapper.toMesocycle(mesocycle));
     }
 
     @Override
@@ -36,5 +36,13 @@ public class MesocycleServiceImpl implements MesocycleService{
     public void deleteProgram(Long id) {
         Mesocycle mesocycle = mesocycleRepository.findById(id).orElseThrow(() -> new MesocycleNotFoundException(id));
         mesocycleRepository.delete(mesocycle);
+    }
+
+    @Override
+    public Mesocycle updateMesocycleInfo(Long id, MesocycleDTO mesocycleToUpdate) {
+        Mesocycle mesocycle = mesocycleRepository.findById(id).orElseThrow(() -> new MesocycleNotFoundException(id));
+        mesocycle.setName(mesocycleMapper.toMesocycle(mesocycleToUpdate).getName());
+        mesocycle.setDescription(mesocycleMapper.toMesocycle(mesocycleToUpdate).getDescription());
+        return mesocycleRepository.save(mesocycle);
     }
 }

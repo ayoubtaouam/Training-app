@@ -6,8 +6,9 @@ import com.trainingapp.ta.entities.Mesocycle;
 import java.util.List;
 
 public interface MesocycleService {
-    Mesocycle createProgram(MesocycleDTO mesocycleDTO);
+    Mesocycle createProgram(MesocycleDTO mesocycle);
     MesocycleDTO getProgram(Long id);
     List<MesocycleDTO> getAllPrograms();
     void deleteProgram(Long id);
+    Mesocycle updateMesocycleInfo(Long id, MesocycleDTO mesocycleToUpdate);
 }
