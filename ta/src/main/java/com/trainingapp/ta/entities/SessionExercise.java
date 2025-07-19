@@ -23,4 +23,5 @@ public class SessionExercise {
     @ManyToOne
     @JoinColumn(name = "session_id")
     private Session session;
+    private int order;
 }

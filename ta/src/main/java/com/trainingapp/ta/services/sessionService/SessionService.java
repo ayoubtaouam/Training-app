@@ -1,5 +1,6 @@
 package com.trainingapp.ta.services.sessionService;
 
+import com.trainingapp.ta.dtos.ReorderingExerciseDTO;
 import com.trainingapp.ta.dtos.SessionDTO;
 import com.trainingapp.ta.entities.Session;
 
@@ -11,4 +12,5 @@ public interface SessionService {
     List<SessionDTO> getAllSessions(Long id);
     void deleteSession(Long id);
     Session updateSession(Long id, SessionDTO sessionToUpdate);
+    void reorderExercise(Long sessionId, List<ReorderingExerciseDTO> reorderingExerciseList);
 }

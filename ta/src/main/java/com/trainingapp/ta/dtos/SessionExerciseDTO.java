@@ -13,4 +13,5 @@ public class SessionExerciseDTO {
     @Valid
     @NotEmpty
     private List<SetDTO> sets;
+    private int order;
 }
