@@ -34,8 +34,10 @@ public class MesocycleServiceImpl implements MesocycleService{
 
     @Override
     public void deleteProgram(Long id) {
-        Mesocycle mesocycle = mesocycleRepository.findById(id).orElseThrow(() -> new MesocycleNotFoundException(id));
-        mesocycleRepository.delete(mesocycle);
+        if (!mesocycleRepository.existsById(id)) {
+            throw new MesocycleNotFoundException(id);
+        }
+        mesocycleRepository.deleteById(id);
     }
 
     @Override

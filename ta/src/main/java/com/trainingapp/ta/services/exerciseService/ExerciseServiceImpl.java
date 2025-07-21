@@ -34,7 +34,9 @@ public class ExerciseServiceImpl implements ExerciseService {
 
     @Override
     public void deleteExercise(Long id) {
-        Exercise exercise = exerciseRepository.findById(id).orElseThrow(() -> new ExerciseNotFoundException(id));
+        if (!exerciseRepository.existsById(id)) {
+            throw new ExerciseNotFoundException(id);
+        }
         exerciseRepository.deleteById(id);
     }
 

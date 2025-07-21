@@ -8,6 +8,8 @@ import com.trainingapp.ta.exceptions.costumExceptions.SessionNotFoundException;
 import com.trainingapp.ta.mappers.SessionMapper;
 import com.trainingapp.ta.repositories.SessionRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,15 +33,16 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public List<SessionDTO> getAllSessions(Long id) {
-        List<Session> sessions = sessionRepository.findAll();
-        return sessions.stream().map(s -> sessionMapper.toDTO(s)).collect(Collectors.toList());
+    public Page<SessionDTO> getAllSessions(Pageable pageable) {
+        Page<Session> sessions = sessionRepository.findAll(pageable);
+        return sessions.map(s -> sessionMapper.toDTO(s));
     }
 
-    @Transactional
     @Override
     public void deleteSession(Long id) {
-        Session session = sessionRepository.findById(id).orElseThrow(() -> new SessionNotFoundException(id));
+        if (!sessionRepository.existsById(id)) {
+            throw new SessionNotFoundException(id);
+        }
         sessionRepository.deleteById(id);
     }
 
@@ -56,7 +59,7 @@ public class SessionServiceImpl implements SessionService {
     @Transactional
     @Override
     public void reorderExercise(Long sessionId, List<ReorderingExerciseDTO> reorderingExerciseList) {
-        Session session = sessionMapper.toSession(getSession(sessionId));
+        Session session = sessionRepository.findById(sessionId).orElseThrow(() -> new SessionNotFoundException(sessionId));
         Map<Long, Integer> orderMap = reorderingExerciseList.stream().collect(Collectors.toMap(ReorderingExerciseDTO::id, ReorderingExerciseDTO::order));
         for (SessionExercise exercise:
              session.getExercises()) {

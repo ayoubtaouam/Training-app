@@ -33,8 +33,10 @@ public class MicrocycleServiceImpl implements MicrocycleService {
 
     @Override
     public void deleteMicrocycle(Long id) {
-        Microcycle microcycle = microcycleRepository.findById(id).orElseThrow(() -> new MicrocycleNotFoundException(id));
-        microcycleRepository.delete(microcycle);
+        if (!microcycleRepository.existsById(id)) {
+            throw new MicrocycleNotFoundException(id);
+        }
+        microcycleRepository.deleteById(id);
     }
 
     @Override

@@ -34,7 +34,9 @@ public class SetServiceImpl implements SetService {
 
     @Override
     public void deleteSet(Long id) {
-        Set set = setRepository.findById(id).orElseThrow(() -> new SetNotFoundException(id));
+        if (!setRepository.existsById(id)) {
+            throw new SetNotFoundException(id);
+        }
         setRepository.deleteById(id);
     }
 

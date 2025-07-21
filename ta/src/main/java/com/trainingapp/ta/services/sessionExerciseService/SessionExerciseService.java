@@ -10,5 +10,5 @@ public interface SessionExerciseService {
     SessionExerciseDTO getExercise(Long id);
     List<SessionExerciseDTO> getAllExercises();
     void deleteExercise(Long id);
-    SessionExercise updateExerciseInfo(Long id, SessionExerciseDTO exerciseToUpdate);
+    SessionExercise updateExerciseInfo(Long id, SessionExerciseDTO updatedExercise);
 }
